@@ -43,7 +43,7 @@ jobs:
         pip install nose
         nosetests
     - name: Publish to pypi-test
-      if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags')
+      if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags') && matrix.os == 'macos-latest'
       env:
         TWINE_USERNAME: ${{ secrets.PYPITEST_USERNAME }}
         TWINE_PASSWORD: ${{ secrets.PYPITEST_PASSWORD }}
