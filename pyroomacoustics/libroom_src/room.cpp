@@ -717,8 +717,8 @@ bool Room<D>::scat_ray(
       // cosine angle should be positive, but could be negative if normal is
       // facing out of room so we take abs
       float cos = wall.cosine_angle(hit_point_to_mic);
-      std::cout << "cos: " << cos << " abs(cos): " << abs(cos) << std::endl;
-      float p_lambert = 2.f * abs(cos);
+      std::cout << "cos: " << cos << " abs(cos): " << std::abs(cos) << std::endl;
+      float p_lambert = 2.f * std::abs(cos);
       Eigen::ArrayXf scat_trans = wall.scatter * transmitted * p_hit_equal * p_lambert;
 
       std::cout << wall.scatter << " " << transmitted << " " << p_hit_equal << " " << p_lambert << std::endl;
