@@ -24,6 +24,7 @@
  * not, see <https://opensource.org/licenses/MIT>.
  */
 
+#include <cmath>
 #include <iostream>
 #include <algorithm>
 #include "room.hpp"
