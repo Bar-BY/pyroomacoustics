@@ -691,6 +691,7 @@ bool Room<D>::scat_ray(
      */
     if (wall.side(mic_pos) != wall.side(prev_last_hit))
     {
+      std::cout << "Failed because mic not visible from wall" << std::endl;
       ret = false;
       continue;
     }
@@ -730,10 +731,14 @@ bool Room<D>::scat_ray(
         microphones[k].log_histogram(travel_dist_at_mic, energy, hit_point);
       }
       else
+      {
+        std::cout << "Failed because max distance/energy reached" << std::endl;
         ret = false;
+      }
     }
     else
     {
+      std::cout << "Failed because obstructed" << std::endl;
       ret = false;  // if a wall intersects the scattered ray, we return false
     }
   }

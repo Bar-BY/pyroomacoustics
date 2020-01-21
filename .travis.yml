@@ -1,11 +1,11 @@
 language: generic
 os:
-  - osx
+  # - osx
   - linux
 env:
-  - PYTHON_VERSION=2.7
-  - PYTHON_VERSION=3.5
-  - PYTHON_VERSION=3.6
+  # - PYTHON_VERSION=2.7
+  # - PYTHON_VERSION=3.5
+  # - PYTHON_VERSION=3.6
   - PYTHON_VERSION=3.7
 
 notifications:
@@ -47,8 +47,9 @@ install:
   - python setup.py install
 
 script:
-  - python setup.py build_ext --inplace
-  - nosetests
+  - python ./pyroomacoustics/tests/tests_libroom/test_room_walls.py
+  # - python setup.py build_ext --inplace
+  # - nosetests
 
 # Deploy to pypi (or test)
 deploy:

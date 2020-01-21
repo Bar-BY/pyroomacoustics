@@ -480,6 +480,8 @@ class TestRoomWalls(unittest.TestCase):
         self.assertTrue(not room.contains(microphones[:,0]))
 
 if __name__ == '__main__':
-    unittest.main()
+    # unittest.main()
+    test_obj = TestRoomWalls()
+    test_obj.test_scat_ray_ok()
 
 
