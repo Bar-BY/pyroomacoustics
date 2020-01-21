@@ -716,7 +716,7 @@ bool Room<D>::scat_ray(
       // cosine angle should be positive, but could be negative if normal is
       // facing out of room so we take abs
       float p_lambert = 2 * abs(wall.cosine_angle(hit_point_to_mic));
-      Eigen::VectorXf scat_trans = wall.scatter * transmitted * p_hit_equal * p_lambert;
+      Eigen::ArrayXf scat_trans = wall.scatter * transmitted * p_hit_equal * p_lambert;
 
       // We add an entry to output and we increment the right element
       // of scat_per_slot
