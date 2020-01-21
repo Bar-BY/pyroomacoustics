@@ -718,6 +718,9 @@ bool Room<D>::scat_ray(
       float p_lambert = 2 * abs(wall.cosine_angle(hit_point_to_mic));
       Eigen::ArrayXf scat_trans = wall.scatter * transmitted * p_hit_equal * p_lambert;
 
+      std::cout << wall.scatter << " " << transmitted << " " << p_hit_equal << " " << p_lambert << std::endl;
+
+      std::cout << wall.scatter.coeff(0) << " " << scat_trans.coeff(0) << std::endl;
       // We add an entry to output and we increment the right element
       // of scat_per_slot
       std::cout << travel_dist_at_mic << " " << distance_thres << " " << scat_trans.maxCoeff() << " " << energy_thres << std::endl;
