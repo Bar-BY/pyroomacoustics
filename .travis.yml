@@ -1,12 +1,12 @@
 language: generic
 os:
-  # - osx
-  - linux
+  - osx
+  # - linux
 env:
   # - PYTHON_VERSION=2.7
-  # - PYTHON_VERSION=3.5
+  - PYTHON_VERSION=3.5
   # - PYTHON_VERSION=3.6
-  - PYTHON_VERSION=3.7
+  # - PYTHON_VERSION=3.7
 
 notifications:
   slack: echology:avPAhIlErQnf7XSUGcSB5awZ
