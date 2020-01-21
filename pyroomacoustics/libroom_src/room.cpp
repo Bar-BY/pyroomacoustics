@@ -720,6 +720,7 @@ bool Room<D>::scat_ray(
 
       // We add an entry to output and we increment the right element
       // of scat_per_slot
+      std::cout << travel_dist_at_mic << " " << distance_thres << " " << scat_trans.maxCoeff() << " " << energy_thres << std::endl;
       if (travel_dist_at_mic < distance_thres && scat_trans.maxCoeff() > energy_thres)
       {
         //output[k].push_back(Hit(travel_dist_at_mic, scat_trans));        
