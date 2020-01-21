@@ -49,5 +49,6 @@ jobs:
         TWINE_PASSWORD: ${{ secrets.PYPITEST_PASSWORD }}
         TWINE_REPO: https://testpypi.python.org/pypi
       run: |
+        pip install wheel
         python setup.py sdist bdist_wheel
         twine upload -r $TWINE_REPO -u $TWINE_USERNAME -p $TWINE_PASSWORD --skip-existing dist/*
