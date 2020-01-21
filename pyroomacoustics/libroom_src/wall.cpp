@@ -315,8 +315,9 @@ float Wall<D>::cosine_angle(
     /*
     Compute the cosine angle between the surface normal and a given vector.
     */
+  std::cout << "from cosine_angle " << p.dot(normal) << " " << p.norm() << std::endl;;
 
-    return p.dot(normal) / p.norm();
+  return p.dot(normal) / p.norm();
 
 }
 
