@@ -1,12 +1,12 @@
 language: generic
 os:
   - osx
-  - linux
+  # - linux
 env:
-  - PYTHON_VERSION=2.7
+  # - PYTHON_VERSION=2.7
   - PYTHON_VERSION=3.5
-  - PYTHON_VERSION=3.6
-  - PYTHON_VERSION=3.7
+  # - PYTHON_VERSION=3.6
+  # - PYTHON_VERSION=3.7
 
 notifications:
   slack: echology:avPAhIlErQnf7XSUGcSB5awZ
@@ -17,32 +17,6 @@ install:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
       sudo apt-get update;
     fi
-  # We do this conditionally because it saves us some downloading if the
-  # version is the same.
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
-      export MINICONDA_OS="MacOSX";
-    else
-      export MINICONDA_OS="Linux";
-    fi
-  - if [[ "$PYTHON_VERSION" == "2.7" ]]; then
-      wget https://repo.continuum.io/miniconda/Miniconda2-latest-${MINICONDA_OS}-x86_64.sh -O miniconda.sh;
-    else
-      wget https://repo.continuum.io/miniconda/Miniconda3-latest-${MINICONDA_OS}-x86_64.sh -O miniconda.sh;
-    fi
-  - bash miniconda.sh -b -p $HOME/miniconda
-  - export PATH="$HOME/miniconda/bin:$PATH"
-  - hash -r
-  - conda config --set always_yes yes --set changeps1 no
-  - conda update -q conda
-  # Useful for debugging any issues with conda
-  - conda info -a
-
-  # We need to setup a new environment
-  - conda create -n test_env python=$PYTHON_VERSION
-  - source activate test_env
-
-  # Install the dependencies
-  - conda install --yes pip numpy scipy>=0.18.0 matplotlib nose
   - pip install -r requirements.txt
   - python setup.py install
 
