@@ -24,8 +24,8 @@
  * not, see <https://opensource.org/licenses/MIT>.
  */
 
-#include <cmath>
 #include <iostream>
+#include <cmath>
 #include <algorithm>
 #include "room.hpp"
 
@@ -692,7 +692,6 @@ bool Room<D>::scat_ray(
      */
     if (wall.side(mic_pos) != wall.side(prev_last_hit))
     {
-      std::cout << "Failed because mic not visible from wall" << std::endl;
       ret = false;
       continue;
     }
@@ -712,13 +711,13 @@ bool Room<D>::scat_ray(
       float travel_dist_at_mic = travel_dist + hop_dist;
 
       // compute the scattered energy reaching the microphone
-      float mh_ratio = mic_radius / std::max(mic_radius, hop_dist);
-      float p_hit_equal = 1.f - sqrt(1.f - mh_ratio * mh_ratio);
+      float m_sq = mic_radius * mic_radius;
+      float h_sq = hop_dist * hop_dist;
+      float p_hit_equal = 1.f - sqrt(1.f - m_sq / h_sq);
       // cosine angle should be positive, but could be negative if normal is
       // facing out of room so we take abs
-      float cos = wall.cosine_angle(hit_point_to_mic);
-      float p_lambert = 2.f * std::abs(cos);
-      Eigen::ArrayXf scat_trans = wall.scatter * transmitted * p_hit_equal * p_lambert;
+      float p_lambert = 2 * std::abs(wall.cosine_angle(hit_point_to_mic));
+      Eigen::VectorXf scat_trans = wall.scatter * transmitted * p_hit_equal * p_lambert;
 
       // We add an entry to output and we increment the right element
       // of scat_per_slot
@@ -727,20 +726,15 @@ bool Room<D>::scat_ray(
         //output[k].push_back(Hit(travel_dist_at_mic, scat_trans));        
         //microphones[k].log_histogram(output[k].back(), hit_point);
         float r_sq = travel_dist_at_mic * travel_dist_at_mic;
-        float mt_ratio = mic_radius / std::max(mic_radius, travel_dist_at_mic);
-        auto p_hit = (1 - sqrt(1 - mt_ratio * mt_ratio));
+        auto p_hit = (1 - sqrt(1 - m_sq / std::max(m_sq, r_sq)));
         Eigen::ArrayXf energy = scat_trans / (r_sq * p_hit) ;
         microphones[k].log_histogram(travel_dist_at_mic, energy, hit_point);
       }
       else
-      {
-        std::cout << "Failed because max distance/energy reached" << std::endl;
         ret = false;
-      }
     }
     else
     {
-      std::cout << "Failed because obstructed" << std::endl;
       ret = false;  // if a wall intersects the scattered ray, we return false
     }
   }
